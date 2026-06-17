@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAVIK-X1 Robot Portal</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#000814,#001d3d,#000000);
+    color:#00ffff;
+    min-height:100vh;
+    padding:20px;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    text-align:center;
+}
+
+h1{
+    margin-bottom:20px;
+    text-shadow:0 0 15px #00ffff;
+}
+
+.robot-face{
+    width:200px;
+    height:200px;
+    margin:20px auto;
+    border:4px solid #00ffff;
+    border-radius:20px;
+    position:relative;
+    box-shadow:0 0 20px #00ffff,
+               0 0 40px #00ffff,
+               0 0 60px #00ffff;
+}
+
+.eye{
+    width:35px;
+    height:35px;
+    background:#00ffff;
+    border-radius:50%;
+    position:absolute;
+    top:55px;
+    box-shadow:0 0 15px #00ffff;
+}
+
+.left-eye{
+    left:40px;
+}
+
+.right-eye{
+    right:40px;
+}
+
+.mouth{
+    width:100px;
+    height:10px;
+    background:#00ffff;
+    position:absolute;
+    bottom:50px;
+    left:50px;
+    box-shadow:0 0 15px #00ffff;
+}
+
+input{
+    width:90%;
+    max-width:350px;
+    padding:12px;
+    margin:8px;
+    border:none;
+    border-radius:8px;
+    text-align:center;
+    font-size:16px;
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:8px;
+    background:#00ffff;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+#error{
+    color:red;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+#details{
+    display:none;
+    margin-top:25px;
+    text-align:left;
+    background:rgba(0,255,255,0.08);
+    border:1px solid #00ffff;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 0 20px rgba(0,255,255,0.4);
+}
+
+#adminPanel{
+    display:none;
+    margin-top:25px;
+    border:1px solid #00ffff;
+    padding:15px;
+    border-radius:15px;
+    background:rgba(0,255,255,0.05);
+}
+
+ul{
+    padding-left:20px;
+}
+
+hr{
+    margin:20px 0;
+    border-color:#00ffff;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🤖 NAVIK-X1 ROBOT PORTAL</h1>
+
+<div class="robot-face">
+    <div class="eye left-eye"></div>
+    <div class="eye right-eye"></div>
+    <div class="mouth"></div>
+</div>
+
+<h3>Enter Security Password</h3>
+
+<input type="password" id="password" placeholder="Enter Password">
+
+<br>
+
+<button onclick="unlock()">UNLOCK</button>
+
+<p id="error"></p>
+
+<div id="details">
+
+<h2>🔓 Access Granted</h2>
+
+<h3>Robot Information</h3>
+
+<p><b>Name:</b> NAVIK-X1</p>
+<p><b>Creator:</b> Ayush Kumar Navik</p>
+<p><b>Version:</b> 10.0</p>
+<p><b>Category:</b> Advanced AI Humanoid Robot</p>
+
+<h3>Core Features</h3>
+
+<ul>
+<li>Artificial Intelligence</li>
+<li>Voice Recognition</li>
+<li>Face Detection</li>
+<li>Object Tracking</li>
+<li>Smart Navigation</li>
+<li>Wi-Fi Connectivity</li>
+<li>Bluetooth Communication</li>
+<li>Autonomous Decision Making</li>
+<li>Security Monitoring</li>
+<li>Real-Time Processing</li>
+</ul>
+
+<h3>Mission</h3>
+
+<p>
+To assist humans in technology, innovation,
+education, automation and future robotics.
+</p>
+
+<hr>
+
+<button onclick="toggleAdminPanel()">
+⚙ Password Settings
+</button>
+
+<div id="adminPanel">
+
+<h3>Admin Password Change</h3>
+
+<input type="password"
+       id="adminCode"
+       placeholder="Admin Code">
+
+<br>
+
+<input type="password"
+       id="newPassword"
+       placeholder="New Password">
+
+<br>
+
+<button onclick="changePassword()">
+Save New Password
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+// First-time setup
+if(!localStorage.getItem("robotPassword")){
+    localStorage.setItem("robotPassword","Ayush2010");
+}
+
+// Unlock Robot Portal
+function unlock(){
+
+    let entered =
+    document.getElementById("password").value;
+
+    let saved =
+    localStorage.getItem("robotPassword");
+
+    if(entered === saved){
+
+        document.getElementById("details")
+        .style.display="block";
+
+        document.getElementById("error")
+        .innerHTML="";
+
+    }else{
+
+        document.getElementById("details")
+        .style.display="none";
+
+        document.getElementById("error")
+        .innerHTML="❌ ACCESS DENIED!";
+    }
+}
+
+// Show/Hide Admin Panel
+function toggleAdminPanel(){
+
+    let panel =
+    document.getElementById("adminPanel");
+
+    if(panel.style.display==="block"){
+        panel.style.display="none";
+    }else{
+        panel.style.display="block";
+    }
+}
+
+// Change Password
+function changePassword(){
+
+    let admin =
+    document.getElementById("adminCode").value;
+
+    let newPass =
+    document.getElementById("newPassword").value;
+
+    if(admin === "NAVIK_ADMIN"){
+
+        if(newPass.trim() === ""){
+            alert("Enter a new password.");
+            return;
+        }
+
+        localStorage.setItem(
+            "robotPassword",
+            newPass
+        );
+
+        alert("✅ Password Changed Successfully!");
+
+        document.getElementById("newPassword").value="";
+        document.getElementById("adminCode").value="";
+
+    }else{
+
+        alert("❌ Wrong Admin Code!");
+    }
+}
+
+</script>
+
+</body>
+</html>
