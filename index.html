@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robot Access Portal</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#000;
+    color:white;
+    height:100vh;
+}
+
+/* Home Page */
+#homePage{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.robot-face{
+    width:180px;
+    height:180px;
+    border:4px solid cyan;
+    border-radius:20px;
+    position:relative;
+    cursor:pointer;
+    box-shadow:0 0 25px cyan;
+}
+
+.eye{
+    width:35px;
+    height:35px;
+    background:cyan;
+    border-radius:50%;
+    position:absolute;
+    top:50px;
+}
+
+.left-eye{
+    left:35px;
+}
+
+.right-eye{
+    right:35px;
+}
+
+.mouth{
+    width:90px;
+    height:10px;
+    background:cyan;
+    position:absolute;
+    bottom:45px;
+    left:45px;
+}
+
+h1{
+    margin-bottom:25px;
+    color:cyan;
+}
+
+/* Login Page */
+#loginPage,
+#detailsPage{
+    display:none;
+    padding:20px;
+    text-align:center;
+}
+
+input{
+    width:80%;
+    max-width:300px;
+    padding:12px;
+    margin-top:20px;
+    border:none;
+    border-radius:8px;
+    text-align:center;
+    font-size:18px;
+}
+
+button{
+    margin-top:15px;
+    padding:12px 25px;
+    border:none;
+    border-radius:8px;
+    background:cyan;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.error{
+    color:red;
+    margin-top:15px;
+}
+
+.details{
+    text-align:left;
+    max-width:500px;
+    margin:auto;
+    margin-top:20px;
+    line-height:1.8;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Home Page -->
+<div id="homePage">
+    <h1>ROBOTIC SYSTEM</h1>
+
+    <div class="robot-face" onclick="openLogin()">
+        <div class="eye left-eye"></div>
+        <div class="eye right-eye"></div>
+        <div class="mouth"></div>
+    </div>
+
+    <p style="margin-top:20px;">
+        Tap the Robot Face to Continue
+    </p>
+</div>
+
+<!-- Login Page -->
+<div id="loginPage">
+    <h2>Enter Security Code</h2>
+
+    <input type="password" id="codeInput"
+           placeholder="Enter Code">
+
+    <br>
+
+    <button onclick="checkCode()">Unlock</button>
+
+    <p class="error" id="errorMsg"></p>
+</div>
+
+<!-- Robot Details Page -->
+<div id="detailsPage">
+    <h1>Robot Information</h1>
+
+    <div class="details">
+        <h3>Robot Name: NAVIK-X1</h3>
+        <p><b>Type:</b> Humanoid Robot</p>
+        <p><b>Power Source:</b> AI Energy Core</p>
+        <p><b>Height:</b> 180 cm</p>
+        <p><b>Features:</b></p>
+
+        <ul>
+            <li>Voice Recognition</li>
+            <li>Face Detection</li>
+            <li>Object Tracking</li>
+            <li>Smart Navigation</li>
+            <li>AI Assistant</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+function openLogin(){
+    document.getElementById("homePage").style.display="none";
+    document.getElementById("loginPage").style.display="block";
+}
+
+function checkCode(){
+    let code =
+    document.getElementById("codeInput").value;
+
+    if(code === "2010"){
+        document.getElementById("loginPage").style.display="none";
+        document.getElementById("detailsPage").style.display="block";
+    }
+    else{
+        document.getElementById("errorMsg").innerText =
+        "ACCESS DENIED! Wrong Code.";
+    }
+}
+</script>
+
+</body>
+</html>
